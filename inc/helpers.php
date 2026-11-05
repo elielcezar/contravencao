@@ -17,6 +17,18 @@ function cv_field( string $name, $default = null, $post_id = 'option' ) {
 	return ( $value === null || $value === '' || $value === false || $value === [] ) ? $default : $value;
 }
 
+/**
+ * Campo true/false do ACF. Diferente de cv_field(), "desligado" (false) é
+ * respeitado; o padrão só vale se o campo nunca foi salvo.
+ */
+function cv_enabled( string $name, bool $default = true, $post_id = 'option' ): bool {
+	if ( ! function_exists( 'get_field' ) ) {
+		return $default;
+	}
+	$value = get_field( $name, $post_id );
+	return $value === null ? $default : (bool) $value;
+}
+
 /** Ícone do sprite SVG (template-parts/icons.php). */
 function cv_icon( string $name, string $class = '' ): string {
 	$class = $class ? ' class="' . esc_attr( $class ) . '"' : '';

@@ -82,29 +82,7 @@ function cv_acf_showcase( string $prefix, string $label ): array {
 
 function cv_acf_home_group(): array {
 	$fields = [
-		cv_tab( 'Hero' ),
-		cv_f( 'repeater', 'hero_slides', 'Slides', [
-			'layout'       => 'block',
-			'button_label' => 'Adicionar slide',
-			'collapsed'    => 'field_cv_hero_kicker',
-			'sub_fields'   => [
-				cv_img( 'hero_image', 'Imagem (1920×1080)', [ 'required' => 1, 'wrapper' => [ 'width' => 35 ] ] ),
-				cv_f( 'text', 'hero_kicker', 'Chamada', [ 'wrapper' => [ 'width' => 65 ] ] ),
-				cv_f( 'text', 'hero_title', 'Título', [ 'instructions' => 'Vazio = nome da loja.', 'wrapper' => [ 'width' => 65 ] ] ),
-				cv_f( 'textarea', 'hero_text', 'Texto', [ 'rows' => 2 ] ),
-				cv_f( 'link', 'hero_link', 'Botão' ),
-			],
-		] ),
-
-		cv_tab( 'Faixas (marquee)' ),
-		cv_f( 'text', 'marquee_1', 'Faixa 1 (após o hero)' ),
-		cv_f( 'text', 'marquee_2', 'Faixa 2 (antes do blog)' ),
-	];
-
-	$fields = array_merge( $fields, cv_acf_showcase( 'grid', 'Vitrine 1 (grade)' ) );
-
-	$fields = array_merge( $fields, [
-		cv_tab( 'Categorias 2-up' ),
+		cv_tab( 'Abertura (categorias 2-up)' ),
 		cv_f( 'repeater', 'split_items', 'Blocos', [
 			'layout'       => 'block',
 			'min'          => 0,
@@ -118,9 +96,14 @@ function cv_acf_home_group(): array {
 			],
 		] ),
 
-		cv_tab( 'Frase' ),
-		cv_f( 'textarea', 'statement', 'Frase de impacto', [ 'rows' => 3, 'new_lines' => 'br', 'instructions' => 'Use <em>palavra</em> para o sublinhado ondulado.' ] ),
+		cv_tab( 'Faixas (marquee)' ),
+		cv_f( 'text', 'marquee_1', 'Faixa 1 (antes do banner)' ),
+		cv_f( 'text', 'marquee_2', 'Faixa 2 (antes do blog)' ),
+	];
 
+	$fields = array_merge( $fields, cv_acf_showcase( 'grid', 'Vitrine 1 (grade)' ) );
+
+	$fields = array_merge( $fields, [
 		cv_tab( 'Banner parallax' ),
 		cv_img( 'banner_image', 'Imagem (1920×1300)' ),
 		cv_f( 'text', 'banner_title', 'Título' ),
@@ -128,9 +111,10 @@ function cv_acf_home_group(): array {
 		cv_f( 'link', 'banner_link', 'Link (opcional)' ),
 	] );
 
-	$fields = array_merge( $fields, cv_acf_showcase( 'carousel', 'Vitrine 2 (carrossel)' ) );
-
 	$fields = array_merge( $fields, [
+		cv_tab( 'Frase' ),
+		cv_f( 'textarea', 'statement', 'Frase de impacto', [ 'rows' => 3, 'new_lines' => 'br', 'instructions' => 'Use <em>palavra</em> para o sublinhado ondulado.' ] ),
+
 		cv_tab( 'Depoimentos' ),
 		cv_f( 'repeater', 'testimonials', 'Depoimentos', [
 			'layout'       => 'block',
@@ -179,3 +163,14 @@ function cv_acf_general_group(): array {
 		],
 	];
 }
+
+/* ---------- admin: trocar imagem/arquivo pela biblioteca de mídia ---------- */
+
+add_action( 'acf/input/admin_enqueue_scripts', function () {
+	$file = get_theme_file_path( 'assets/js/admin-acf.js' );
+	wp_enqueue_script( 'cv-admin-acf', get_theme_file_uri( 'assets/js/admin-acf.js' ), [ 'acf-input' ], filemtime( $file ), true );
+	wp_add_inline_style( 'acf-input', '
+		.acf-actions .cv-acf-replace { display:inline-flex; align-items:center; justify-content:center; }
+		.acf-actions .cv-acf-replace .dashicons { font-size:14px; width:14px; height:14px; line-height:14px; }
+	' );
+} );

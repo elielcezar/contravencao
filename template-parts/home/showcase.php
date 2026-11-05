@@ -16,12 +16,12 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 $p        = $args['prefix'];
 $carousel = ( $args['layout'] ?? 'grid' ) === 'carousel';
 
-if ( ! cv_field( "{$p}_enabled", true ) ) {
+if ( ! cv_enabled( "{$p}_enabled" ) ) {
 	return;
 }
 
 $title = cv_field( "{$p}_title", '' );
-$limit = (int) cv_field( "{$p}_limit", $carousel ? 8 : 4 );
+$limit = (int) cv_field( "{$p}_limit", 8 );
 $tabs  = cv_field( "{$p}_tabs", [] );
 
 // Monta os painéis e descarta abas sem produto.

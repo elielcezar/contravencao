@@ -5,7 +5,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! cv_field( 'blog_enabled', true ) ) {
+if ( ! cv_enabled( 'blog_enabled' ) ) {
 	return;
 }
 
