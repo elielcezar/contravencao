@@ -11,7 +11,7 @@ add_action( 'wp_enqueue_scripts', function () {
 
 	wp_enqueue_style(
 		'cv-fonts',
-		'https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Instrument+Sans:wght@400;500;600&display=swap',
+		'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Instrument+Sans:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap',
 		[],
 		null
 	);

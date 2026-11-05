@@ -48,13 +48,38 @@ function cv_kses_inline( string $text ): string {
 	return wp_kses( $text, [ 'em' => [], 'strong' => [], 'br' => [] ] );
 }
 
-/** Logo: logo personalizada do Customizer ou o nome do site em texto. */
+/**
+ * Lettering da marca (assets/images/logo.svg) inline, em currentColor:
+ * herda a cor do contexto (branco sobre o hero, preto no header fixo etc.).
+ * logo.svg é a versão monocromática de contravencao-lettering.svg.
+ */
+function cv_lettering( string $class = '' ): string {
+	static $svg = null;
+	if ( $svg === null ) {
+		$file = CV_DIR . '/assets/images/logo.svg';
+		$svg  = is_readable( $file ) ? trim( (string) file_get_contents( $file ) ) : '';
+	}
+	if ( $svg === '' ) {
+		return '';
+	}
+	$attrs = sprintf( '<svg class="%s" role="img" aria-label="%s" focusable="false"', esc_attr( trim( 'lettering ' . $class ) ), esc_attr( get_bloginfo( 'name' ) ) );
+	return preg_replace( '/^<svg/', $attrs, $svg, 1 );
+}
+
+/** Logo: logo do Customizer (se definida) > lettering SVG > nome do site em texto. */
 function cv_logo( string $class = 'logo' ): void {
 	$name = get_bloginfo( 'name' );
+	$home = esc_url( home_url( '/' ) );
+
 	if ( has_custom_logo() ) {
 		$logo = wp_get_attachment_image( get_theme_mod( 'custom_logo' ), 'medium', false, [ 'alt' => $name ] );
-		printf( '<a href="%s" class="%s logo--image" rel="home">%s</a>', esc_url( home_url( '/' ) ), esc_attr( $class ), $logo ); // phpcs:ignore
+		printf( '<a href="%s" class="%s logo--image" rel="home">%s</a>', $home, esc_attr( $class ), $logo ); // phpcs:ignore
 		return;
 	}
-	printf( '<a href="%s" class="%s" rel="home">%s</a>', esc_url( home_url( '/' ) ), esc_attr( $class ), esc_html( mb_strtoupper( $name ) ) );
+	$lettering = cv_lettering();
+	if ( $lettering ) {
+		printf( '<a href="%s" class="%s logo--svg" rel="home">%s</a>', $home, esc_attr( $class ), $lettering ); // phpcs:ignore
+		return;
+	}
+	printf( '<a href="%s" class="%s" rel="home">%s</a>', $home, esc_attr( $class ), esc_html( mb_strtoupper( $name ) ) );
 }
