@@ -29,4 +29,7 @@ $is_woo_page  = function_exists( 'is_cart' ) && ( is_cart() || is_checkout() || 
 	<?php endwhile; ?>
 </main>
 <?php
+/** Seções de largura total entre o conteúdo e o footer (ex.: recomendações no carrinho). */
+do_action( 'cv_after_main' );
+
 get_footer();

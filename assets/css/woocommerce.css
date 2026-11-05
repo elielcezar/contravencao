@@ -120,7 +120,34 @@ ul.products { margin: 0; }
 .woocommerce-product-gallery__trigger::before { content: ""; width: 16px; height: 16px; border: 1.6px solid var(--c-text); border-radius: 50%; }
 .woocommerce-product-gallery:not(:has(.flex-viewport)) .woocommerce-product-gallery__wrapper { display: grid; gap: 10px; }
 
-.summary .product_title { margin-bottom: 14px; }
+/* Vídeo do produto (inc/product-video.php): vídeo 9:16 dentro de um quadro na
+   proporção das fotos, para a galeria não "pular" de altura entre slides. */
+.woocommerce-product-gallery { --gallery-ratio: 5 / 7; }
+.cv-video { position: relative; aspect-ratio: var(--gallery-ratio); background: var(--c-soft); overflow: hidden; }
+.cv-video video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; cursor: pointer; }
+.cv-video__sound {
+  position: absolute; right: 16px; bottom: 16px; z-index: 2;
+  display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%;
+  background: rgba(20, 20, 20, .65); color: var(--c-chalk); transition: background .2s;
+}
+.cv-video__sound:hover { background: var(--c-green); }
+.cv-video__sound svg { width: 18px; height: 18px; }
+.cv-video .i-sound-on, .cv-video.is-unmuted .i-sound-off { display: none; }
+.cv-video.is-unmuted .i-sound-on { display: block; }
+/* Miniatura do vídeo: ícone de play por cima */
+.flex-control-thumbs li { position: relative; }
+/* Sem capa, a <img> da thumb é um gif 1×1: precisa ocupar a célula, senão o
+   clique (que o flexslider escuta na <img>) cai no <li> e nada acontece. */
+.flex-control-thumbs img { display: block; width: 100%; height: auto; }
+.flex-control-thumbs .woocommerce-product-gallery__video-thumbnail-placeholder { aspect-ratio: 1 / 1; object-fit: cover; }
+.flex-control-thumbs li.woocommerce-product-gallery__video-thumbnail::after,
+.has-video .flex-control-thumbs li.cv-thumb-video::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform: translate(-35%, -50%);
+  border-style: solid; border-width: 7px 0 7px 12px; border-color: transparent transparent transparent var(--c-white);
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,.4)); pointer-events: none;
+}
+
+.summary .product_title { margin-bottom: 14px; letter-spacing: -2px; }
 .summary .woocommerce-product-rating { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 13px; color: var(--c-muted); }
 .summary .price { display: flex; align-items: baseline; gap: 10px; margin-bottom: 22px; font-size: 22px; font-weight: 600; color: var(--c-text); }
 .summary .price ins { order: -1; text-decoration: none; }

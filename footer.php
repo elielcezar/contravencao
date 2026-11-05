@@ -5,12 +5,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$news_title     = cv_field( 'news_title', 'Receba novidades' );
-$news_text      = cv_field( 'news_text', 'Cadastre seu e-mail para receber lançamentos e drops exclusivos — e ganhe 10% na primeira compra.' );
-$news_shortcode = cv_field( 'news_shortcode', '' );
-$news_legal     = cv_field( 'news_legal', '' );
-$copyright      = str_replace( '{ano}', wp_date( 'Y' ), cv_field( 'footer_copyright', '© {ano} Contravenção. Todos os direitos reservados.' ) );
-$payments       = array_filter( array_map( 'trim', explode( ',', cv_field( 'footer_payments', 'Pix, Visa, Mastercard, Elo, Boleto' ) ) ) );
+$copyright = str_replace( '{ano}', wp_date( 'Y' ), cv_field( 'footer_copyright', '© {ano} Contravenção. Todos os direitos reservados.' ) );
+$payments  = array_filter( array_map( 'trim', explode( ',', cv_field( 'footer_payments', 'Pix, Visa, Mastercard, Elo, Boleto' ) ) ) );
 ?>
 
 <footer class="site-footer">
@@ -24,23 +20,6 @@ $payments       = array_filter( array_map( 'trim', explode( ',', cv_field( 'foot
 					</div>
 				<?php endif; ?>
 			<?php endforeach; ?>
-
-			<div class="footer-col footer-col--news">
-				<h4><?php echo esc_html( $news_title ); ?></h4>
-				<p><?php echo esc_html( $news_text ); ?></p>
-				<?php if ( $news_shortcode ) : ?>
-					<div class="newsletter-embed"><?php echo do_shortcode( $news_shortcode ); ?></div>
-				<?php else : ?>
-					<form class="newsletter" action="#" onsubmit="return false">
-						<label class="sr-only" for="newsEmail">Seu e-mail</label>
-						<input id="newsEmail" type="email" placeholder="Seu e-mail" autocomplete="email" required>
-						<button type="submit">Cadastrar</button>
-					</form>
-				<?php endif; ?>
-				<?php if ( $news_legal ) : ?>
-					<small><?php echo wp_kses_post( $news_legal ); ?></small>
-				<?php endif; ?>
-			</div>
 		</div>
 
 		<div class="footer-bottom">

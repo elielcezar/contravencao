@@ -3,7 +3,7 @@
  * ACF Pro: páginas de opções e campos (registrados em PHP, versionados com o tema).
  *
  * Contravenção > Home  → seções da home
- * Contravenção > Geral → topbar, newsletter, rodapé
+ * Contravenção > Geral → topbar, rodapé
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -172,12 +172,6 @@ function cv_acf_general_group(): array {
 		'fields'   => [
 			cv_tab( 'Topbar' ),
 			cv_f( 'text', 'topbar_notice', 'Aviso central', [ 'instructions' => 'Links da topbar: Aparência > Menus (locais "Topbar").' ] ),
-
-			cv_tab( 'Newsletter' ),
-			cv_f( 'text', 'news_title', 'Título' ),
-			cv_f( 'textarea', 'news_text', 'Texto', [ 'rows' => 2 ] ),
-			cv_f( 'text', 'news_shortcode', 'Shortcode do formulário', [ 'instructions' => 'Ex.: [wpforms id="123"]. Vazio = formulário visual sem envio (só layout).' ] ),
-			cv_f( 'textarea', 'news_legal', 'Texto legal', [ 'rows' => 2, 'new_lines' => '' ] ),
 
 			cv_tab( 'Rodapé' ),
 			cv_f( 'text', 'footer_copyright', 'Copyright', [ 'instructions' => 'Use {ano} para o ano atual.' ] ),

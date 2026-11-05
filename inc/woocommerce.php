@@ -222,6 +222,97 @@ add_filter( 'woocommerce_variable_price_html', function ( $html, $product ) {
 	return '<span class="price-from">A partir de</span> ' . wc_price( $min ) . $product->get_price_suffix();
 }, 10, 2 );
 
+/* ---------- Adicionar ao carrinho ---------- */
+
+// Página do produto: depois de adicionar, vai direto para o carrinho (o aviso
+// "adicionado ao carrinho" aparece lá). Os cards (home/loja) seguem por AJAX:
+// o envio do formulário do produto é POST; o fallback sem JS dos cards é GET.
+add_filter( 'woocommerce_add_to_cart_redirect', function ( $url ) {
+	if ( ! wp_doing_ajax() && isset( $_POST['add-to-cart'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		return wc_get_cart_url();
+	}
+	return $url;
+} );
+
+/* ---------- Carrinho: "Você também pode gostar" ---------- */
+
+/**
+ * Recomendações para o carrinho: vendas cruzadas dos itens (se cadastradas),
+ * depois produtos relacionados (mesma categoria/tag), completando com os mais
+ * vendidos. Nunca repete o que já está no carrinho.
+ */
+function cv_cart_recommendations( int $limit = 4 ): array {
+	$cart = WC()->cart;
+	if ( ! $cart || $cart->is_empty() ) {
+		return [];
+	}
+
+	$in_cart = [];
+	foreach ( $cart->get_cart() as $item ) {
+		$in_cart[] = (int) $item['product_id']; // produto pai (no caso de variação)
+	}
+	$in_cart = array_unique( $in_cart );
+
+	$ids = [];
+	foreach ( $in_cart as $id ) {
+		$p = wc_get_product( $id );
+		if ( $p ) {
+			$ids = array_merge( $ids, $p->get_cross_sell_ids() );
+		}
+	}
+	foreach ( $in_cart as $id ) {
+		$ids = array_merge( $ids, wc_get_related_products( $id, $limit * 2, $in_cart ) );
+	}
+	$ids = array_values( array_diff( array_unique( array_map( 'intval', $ids ) ), $in_cart ) );
+
+	$products = $ids ? wc_get_products( [
+		'include'    => $ids,
+		'status'     => 'publish',
+		'visibility' => 'catalog',
+		'limit'      => $limit,
+		'orderby'    => 'post__in',
+	] ) : [];
+
+	if ( count( $products ) < $limit ) {
+		$exclude = array_merge( $in_cart, array_map( fn( $p ) => $p->get_id(), $products ) );
+		$more    = wc_get_products( [
+			'status'     => 'publish',
+			'visibility' => 'catalog',
+			'limit'      => $limit - count( $products ),
+			'orderby'    => 'popularity',
+			'exclude'    => $exclude,
+		] );
+		$products = array_merge( $products, $more );
+	}
+
+	return array_filter( $products, fn( $p ) => $p->is_visible() );
+}
+
+// Seção de largura total depois do carrinho (antes do footer). Carrinho vazio: o
+// próprio bloco do Woo já mostra novidades, então não repete.
+add_action( 'cv_after_main', function () {
+	if ( ! is_cart() ) {
+		return;
+	}
+	$products = cv_cart_recommendations( 4 );
+	if ( ! $products ) {
+		return;
+	}
+	echo '<section class="product-related-section"><div class="container">';
+	get_template_part( 'template-parts/product-recommendations', null, [ 'products' => $products ] );
+	echo '</div></section>';
+} );
+
+// Esconde a coleção de vendas cruzadas que vem dentro do bloco do carrinho
+// (depende de vínculo manual e duplicaria a seção acima).
+add_filter( 'render_block', function ( $html, $block ) {
+	if ( ( $block['blockName'] ?? '' ) === 'woocommerce/product-collection'
+		&& ( $block['attrs']['collection'] ?? '' ) === 'woocommerce/product-collection/cross-sells' ) {
+		return '';
+	}
+	return $html;
+}, 10, 2 );
+
 // Botão de lista de desejos ao lado do "Comprar".
 add_action( 'woocommerce_after_add_to_cart_button', function () {
 	global $product;

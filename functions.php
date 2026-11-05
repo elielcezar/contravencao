@@ -18,4 +18,5 @@ require CV_DIR . '/inc/acf.php';
 if ( class_exists( 'WooCommerce' ) ) {
 	require CV_DIR . '/inc/woocommerce.php';
 	require CV_DIR . '/inc/wishlist.php';
+	require CV_DIR . '/inc/product-video.php';
 }
