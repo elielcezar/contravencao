@@ -1,0 +1,25 @@
+/* Dados de exemplo. No tema, isto vem do loop do WooCommerce (WP_Query / wc_get_products). */
+window.CAPONE_PRODUCTS = [
+  { id: 1,  name: 'Vestido midi degradê',        cats: ['vestidos', 'feminino'], price: 289.9, regular: 389.9, rating: 4.8, reviews: 12 },
+  { id: 2,  name: 'Vestido texturizado verde',   cats: ['vestidos', 'feminino'], price: 249.9, rating: 4.5, reviews: 8 },
+  { id: 3,  name: 'Vestido curto tomara que caia', cats: ['vestidos'],           price: 199.9, regular: 229.9, rating: 4.2, reviews: 5 },
+  { id: 4,  name: 'Vestido longo floral',         cats: ['vestidos', 'feminino'], price: 319.9, regular: 459.9, rating: 4.9, reviews: 21 },
+  { id: 5,  name: 'Camisa linho relaxed',         cats: ['masculino'],            price: 229.9, rating: 4.6, reviews: 9 },
+  { id: 6,  name: 'Calça alfaiataria reta',       cats: ['masculino'],            price: 279.9, regular: 329.9, rating: 4.4, reviews: 14 },
+  { id: 7,  name: 'Polo tricô',                   cats: ['masculino', 'blusas'],  price: 189.9, rating: 4.7, reviews: 6 },
+  { id: 8,  name: 'Bermuda sarja',                cats: ['masculino'],            price: 159.9, regular: 199.9, rating: 4.1, reviews: 3 },
+  { id: 9,  name: 'Camiseta básica algodão',      cats: ['camisetas'],            price: 89.9,  rating: 4.8, reviews: 40 },
+  { id: 10, name: 'Camiseta oversized',           cats: ['camisetas', 'masculino'], price: 109.9, regular: 139.9, rating: 4.5, reviews: 17 },
+  { id: 11, name: 'Regata canelada',              cats: ['camisetas', 'feminino'], price: 79.9, rating: 4.3, reviews: 11 },
+  { id: 12, name: 'Camiseta estampada',           cats: ['camisetas'],            price: 99.9,  rating: 4.0, reviews: 4 },
+  { id: 13, name: 'Jaqueta bomber marinho',       cats: ['jaquetas', 'masculino'], price: 399.9, regular: 499.9, rating: 4.7, reviews: 10 },
+  { id: 14, name: 'Jaqueta corta-vento branca',   cats: ['jaquetas', 'masculino'], price: 349.9, rating: 4.4, reviews: 7 },
+  { id: 15, name: 'Jaqueta cropped com capuz',    cats: ['jaquetas', 'feminino'], price: 329.9, regular: 379.9, rating: 4.6, reviews: 13 },
+  { id: 16, name: 'Moletom zíper bordado',        cats: ['jaquetas', 'blusas'],   price: 259.9, regular: 299.9, rating: 4.9, reviews: 25 },
+  { id: 17, name: 'Jaqueta jeans clássica',       cats: ['jaquetas'],             price: 309.9, rating: 4.5, reviews: 18 },
+  { id: 18, name: 'Trench coat leve',             cats: ['jaquetas', 'feminino'], price: 549.9, regular: 649.9, rating: 4.8, reviews: 9 },
+  { id: 19, name: 'Blusa de tricô gola alta',     cats: ['blusas', 'feminino'],   price: 199.9, rating: 4.6, reviews: 15 },
+  { id: 20, name: 'Blusa cetim manga longa',      cats: ['blusas', 'feminino'],   price: 219.9, regular: 259.9, rating: 4.3, reviews: 6 },
+  { id: 21, name: 'Cardigan botões',              cats: ['blusas'],               price: 239.9, rating: 4.7, reviews: 12 },
+  { id: 22, name: 'Suéter decote V',              cats: ['blusas', 'masculino'],  price: 229.9, regular: 269.9, rating: 4.2, reviews: 4 }
+];

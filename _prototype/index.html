@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Capone — Moda</title>
+  <meta name="description" content="Capone — layout base da home para o tema WooCommerce.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header is-transparent" id="siteHeader">
+    <div class="topbar">
+      <div class="container topbar__inner">
+        <nav class="topbar__links" aria-label="Links rápidos">
+          <a href="#">Rastrear pedido</a>
+          <a href="#">Minha conta</a>
+          <a href="#">Sobre nós</a>
+        </nav>
+        <p class="topbar__notice">Frete grátis nas compras acima de R$ 299 · Troca fácil em até 30 dias</p>
+        <div class="topbar__links topbar__links--right">
+          <a href="#">Contato</a>
+          <button class="topbar__select" type="button">Português <svg class="i-chev"><use href="#i-chevron"/></svg></button>
+          <button class="topbar__select" type="button">BRL <svg class="i-chev"><use href="#i-chevron"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-main">
+      <div class="container header-main__inner">
+        <div class="header-main__left">
+          <button class="icon-btn" type="button" data-open="menuDrawer" aria-label="Abrir menu">
+            <svg><use href="#i-menu"/></svg>
+          </button>
+          <a href="index.html" class="logo" aria-label="Capone — início">CAPONE</a>
+        </div>
+
+        <nav class="main-nav" aria-label="Menu principal">
+          <ul>
+            <li><a href="#">Início</a></li>
+            <li class="has-sub">
+              <a href="#">Loja <svg class="i-chev"><use href="#i-chevron"/></svg></a>
+              <ul class="sub-menu">
+                <li><a href="#">Todos os produtos</a></li>
+                <li><a href="#">Lançamentos</a></li>
+                <li><a href="#">Mais vendidos</a></li>
+                <li><a href="#">Promoções</a></li>
+              </ul>
+            </li>
+            <li class="has-sub">
+              <a href="#">Categorias <svg class="i-chev"><use href="#i-chevron"/></svg></a>
+              <ul class="sub-menu">
+                <li><a href="#">Vestidos</a></li>
+                <li><a href="#">Camisetas</a></li>
+                <li><a href="#">Jaquetas</a></li>
+                <li><a href="#">Acessórios</a></li>
+              </ul>
+            </li>
+            <li class="has-sub">
+              <a href="#">Feminino <svg class="i-chev"><use href="#i-chevron"/></svg></a>
+              <ul class="sub-menu">
+                <li><a href="#">Vestidos</a></li>
+                <li><a href="#">Blusas</a></li>
+                <li><a href="#">Saias</a></li>
+              </ul>
+            </li>
+            <li><a href="#">Masculino</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contato</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-main__right">
+          <button class="icon-btn" type="button" data-open="searchPanel" aria-label="Buscar"><svg><use href="#i-search"/></svg></button>
+          <a class="icon-btn has-count" href="#" aria-label="Lista de desejos"><svg><use href="#i-heart"/></svg><span class="count">0</span></a>
+          <a class="icon-btn hide-sm" href="#" aria-label="Minha conta"><svg><use href="#i-user"/></svg></a>
+          <button class="icon-btn has-count" type="button" data-open="cartDrawer" aria-label="Carrinho"><svg><use href="#i-bag"/></svg><span class="count" id="cartCount">0</span></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ HERO SLIDER ============ -->
+    <section class="hero" aria-label="Destaques">
+      <div class="hero__slides">
+        <div class="hero__slide is-active">
+          <img class="hero__img" src="https://picsum.photos/seed/capone-hero1/1920/1080" alt="">
+          <div class="hero__content">
+            <p class="hero__kicker">Nova coleção de verão</p>
+            <h1 class="hero__title">CAPONE</h1>
+            <p class="hero__text">Peças atemporais com corte preciso e tecidos leves, feitas para acompanhar o seu ritmo do dia a dia.</p>
+            <a href="#" class="btn btn--light">Ver coleção</a>
+          </div>
+        </div>
+        <div class="hero__slide">
+          <img class="hero__img" src="https://picsum.photos/seed/capone-hero2/1920/1080" alt="">
+          <div class="hero__content">
+            <p class="hero__kicker">Essenciais da estação</p>
+            <h1 class="hero__title">CAPONE</h1>
+            <p class="hero__text">Linhas limpas, cores neutras e o conforto de quem não abre mão do estilo.</p>
+            <a href="#" class="btn btn--light">Comprar agora</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero__dots" role="tablist" aria-label="Slides"></div>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Escolha seu estilo de verão</span><span class="dot">·</span>
+        <span>Escolha seu estilo de verão</span><span class="dot">·</span>
+        <span>Escolha seu estilo de verão</span><span class="dot">·</span>
+        <span>Escolha seu estilo de verão</span><span class="dot">·</span>
+      </div>
+    </div>
+
+    <!-- ============ PRODUTOS COM ABAS ============ -->
+    <section class="section section--tight">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title">Renove seu guarda-roupa</h2>
+          <div class="tabs" data-tabs="grid1">
+            <button class="tabs__btn is-active" data-cat="vestidos">Vestidos</button>
+            <button class="tabs__btn" data-cat="masculino">Masculino</button>
+            <button class="tabs__btn" data-cat="camisetas">Camisetas</button>
+            <button class="tabs__btn" data-cat="feminino">Feminino</button>
+          </div>
+        </div>
+        <ul class="products" id="grid1"></ul>
+      </div>
+    </section>
+
+    <!-- ============ CATEGORIAS 2-UP ============ -->
+    <section class="cat-split">
+      <a href="#" class="cat-split__item">
+        <img src="https://picsum.photos/seed/capone-fem/1200/1400" alt="">
+        <div class="cat-split__caption">
+          <h2>Feminino</h2>
+          <p>Força suave, detalhes refinados e silhuetas pensadas para a mulher contemporânea.</p>
+        </div>
+      </a>
+      <a href="#" class="cat-split__item">
+        <img src="https://picsum.photos/seed/capone-masc/1200/1400" alt="">
+        <div class="cat-split__caption">
+          <h2>Masculino</h2>
+          <p>Estrutura limpa, modelagem atual e peças fáceis de combinar todos os dias.</p>
+        </div>
+      </a>
+    </section>
+
+    <!-- ============ STATEMENT ============ -->
+    <section class="statement">
+      <div class="container">
+        <p class="statement__text reveal">
+          Vista seu <em>momento</em><br>
+          com a <em>elegância</em> que fica<br>
+          na nova <em>coleção</em>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ BANNER PARALLAX ============ -->
+    <section class="banner">
+      <img class="banner__img" data-parallax src="https://picsum.photos/seed/capone-banner/1920/1300" alt="">
+      <div class="banner__caption">
+        <h2>Os looks que você vai amar</h2>
+        <p>Estilo com personalidade. Design cuidadoso, materiais nobres e caimento feito para durar.</p>
+      </div>
+    </section>
+
+    <!-- ============ PRODUTOS EM DESTAQUE (CARROSSEL) ============ -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title">Produtos em destaque</h2>
+          <div class="tabs" data-tabs="carousel1">
+            <button class="tabs__btn is-active" data-cat="jaquetas">Jaquetas</button>
+            <button class="tabs__btn" data-cat="masculino">Masculino</button>
+            <button class="tabs__btn" data-cat="blusas">Blusas</button>
+            <button class="tabs__btn" data-cat="feminino">Feminino</button>
+          </div>
+        </div>
+        <div class="carousel" data-carousel>
+          <ul class="products products--carousel carousel__track" id="carousel1"></ul>
+          <div class="carousel__dots"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DEPOIMENTOS ============ -->
+    <section class="testimonials">
+      <div class="container testimonials__inner" data-testimonials>
+        <button class="arrow arrow--prev" type="button" aria-label="Anterior"><svg><use href="#i-chevron"/></svg></button>
+        <div class="testimonials__viewport">
+          <figure class="testimonial is-active">
+            <blockquote>Roupas bem construídas, que se encaixam na rotina. Pensadas para conforto, versatilidade e uso diário — sem perder a elegância.</blockquote>
+            <img src="https://picsum.photos/seed/capone-av1/120/140" alt="" class="testimonial__avatar">
+            <figcaption>Mariana S. — São Paulo</figcaption>
+          </figure>
+          <figure class="testimonial">
+            <blockquote>A modelagem é impecável e o tecido é outro nível. Virou minha marca preferida para o dia a dia e para o trabalho.</blockquote>
+            <img src="https://picsum.photos/seed/capone-av2/120/140" alt="" class="testimonial__avatar">
+            <figcaption>Rafael T. — Curitiba</figcaption>
+          </figure>
+          <figure class="testimonial">
+            <blockquote>Entrega rápida, embalagem caprichada e a troca foi simples. Dá para ver o cuidado em cada detalhe.</blockquote>
+            <img src="https://picsum.photos/seed/capone-av3/120/140" alt="" class="testimonial__avatar">
+            <figcaption>Juliana M. — Belo Horizonte</figcaption>
+          </figure>
+        </div>
+        <button class="arrow arrow--next" type="button" aria-label="Próximo"><svg><use href="#i-chevron"/></svg></button>
+      </div>
+    </section>
+
+    <!-- ============ EDITORIAL ============ -->
+    <section class="section editorial">
+      <div class="container editorial__grid">
+        <div class="editorial__text reveal">
+          <h2>Moda que<br>respeita<br>o planeta</h2>
+          <p>Criada para o dia a dia: silhuetas limpas, materiais naturais e um estilo que atravessa estações.</p>
+          <a href="#" class="btn btn--dark">Descobrir</a>
+        </div>
+        <figure class="editorial__main reveal">
+          <img src="https://picsum.photos/seed/capone-ed1/800/1050" alt="">
+        </figure>
+        <figure class="editorial__side reveal">
+          <img src="https://picsum.photos/seed/capone-ed2/600/640" alt="">
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ MARQUEE 2 ============ -->
+    <div class="marquee marquee--reverse" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Escolha seu estilo de verão</span><span class="dot">·</span>
+        <span>Escolha seu estilo de verão</span><span class="dot">·</span>
+        <span>Escolha seu estilo de verão</span><span class="dot">·</span>
+        <span>Escolha seu estilo de verão</span><span class="dot">·</span>
+      </div>
+    </div>
+
+    <!-- ============ BLOG ============ -->
+    <section class="section section--tight">
+      <div class="container">
+        <ul class="posts">
+          <li class="post">
+            <a href="#" class="post__thumb"><img src="https://picsum.photos/seed/capone-b1/640/520" alt=""></a>
+            <span class="post__cat">Dicas de estilo</span>
+            <h3 class="post__title"><a href="#">Como montar um guarda-roupa cápsula para o verão</a></h3>
+            <span class="post__meta">por Equipe Capone · 12 out 2026</span>
+          </li>
+          <li class="post">
+            <a href="#" class="post__thumb"><img src="https://picsum.photos/seed/capone-b2/640/520" alt=""></a>
+            <span class="post__cat">Tendências</span>
+            <h3 class="post__title"><a href="#">Os tons terrosos que vão dominar a estação</a></h3>
+            <span class="post__meta">por Equipe Capone · 05 out 2026</span>
+          </li>
+          <li class="post">
+            <a href="#" class="post__thumb"><img src="https://picsum.photos/seed/capone-b3/640/520" alt=""></a>
+            <span class="post__cat">Street style</span>
+            <h3 class="post__title"><a href="#">Looks de rua que inspiram a nova coleção</a></h3>
+            <span class="post__meta">por Equipe Capone · 28 set 2026</span>
+          </li>
+          <li class="post">
+            <a href="#" class="post__thumb"><img src="https://picsum.photos/seed/capone-b4/640/520" alt=""></a>
+            <span class="post__cat">Cuidados</span>
+            <h3 class="post__title"><a href="#">Guia rápido para suas peças durarem mais</a></h3>
+            <span class="post__meta">por Equipe Capone · 19 set 2026</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="#">Sobre a Capone</a></li>
+            <li><a href="#">Trabalhe conosco</a></li>
+            <li><a href="#">Nossas lojas</a></li>
+            <li><a href="#">Avaliações</a></li>
+            <li><a href="#">Sustentabilidade</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Ajuda</h4>
+          <ul>
+            <li><a href="#">Meus pedidos</a></li>
+            <li><a href="#">Trocas e devoluções</a></li>
+            <li><a href="#">Prazos e frete</a></li>
+            <li><a href="#">Guia de tamanhos</a></li>
+            <li><a href="#">Central de ajuda</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Institucional</h4>
+          <ul>
+            <li><a href="#">Política de privacidade</a></li>
+            <li><a href="#">Termos de uso</a></li>
+            <li><a href="#">Preferências de cookies</a></li>
+            <li><a href="#">Contato</a></li>
+          </ul>
+        </div>
+        <div class="footer-col footer-col--news">
+          <h4>Receba novidades</h4>
+          <p>Cadastre seu e-mail para receber lançamentos e ofertas — e ganhe 10% na primeira compra.</p>
+          <form class="newsletter" onsubmit="return false">
+            <label class="sr-only" for="newsEmail">Seu e-mail</label>
+            <input id="newsEmail" type="email" placeholder="Seu e-mail" required>
+            <button type="submit">Cadastrar</button>
+          </form>
+          <small>Ao se cadastrar você concorda com nossos <a href="#">Termos</a> e a <a href="#">Política de privacidade</a>.</small>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Capone. Todos os direitos reservados.</p>
+        <ul class="payments" aria-label="Formas de pagamento">
+          <li>Pix</li><li>Visa</li><li>Mastercard</li><li>Elo</li><li>Boleto</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-wordmark" aria-hidden="true">CAPONE</div>
+  </footer>
+
+  <!-- ============ OFFCANVAS / OVERLAYS ============ -->
+  <div class="overlay" id="overlay"></div>
+
+  <aside class="drawer drawer--left" id="menuDrawer" aria-label="Menu">
+    <div class="drawer__head">
+      <span class="logo logo--dark">CAPONE</span>
+      <button class="icon-btn" type="button" data-close aria-label="Fechar"><svg><use href="#i-close"/></svg></button>
+    </div>
+    <nav class="drawer__nav">
+      <a href="#">Início</a><a href="#">Loja</a><a href="#">Categorias</a><a href="#">Feminino</a>
+      <a href="#">Masculino</a><a href="#">Blog</a><a href="#">Contato</a>
+    </nav>
+  </aside>
+
+  <aside class="drawer drawer--right" id="cartDrawer" aria-label="Carrinho">
+    <div class="drawer__head">
+      <strong>Carrinho</strong>
+      <button class="icon-btn" type="button" data-close aria-label="Fechar"><svg><use href="#i-close"/></svg></button>
+    </div>
+    <ul class="mini-cart" id="miniCart"></ul>
+    <div class="mini-cart__empty" id="miniCartEmpty">
+      <svg><use href="#i-bag"/></svg>
+      <p>Seu carrinho está vazio.</p>
+      <a href="#" class="btn btn--dark" data-close>Continuar comprando</a>
+    </div>
+    <div class="mini-cart__foot" id="miniCartFoot" hidden>
+      <div class="mini-cart__total"><span>Subtotal</span><strong id="miniCartTotal">R$ 0,00</strong></div>
+      <a href="#" class="btn btn--dark btn--block">Finalizar compra</a>
+      <a href="#" class="btn btn--outline btn--block">Ver carrinho</a>
+    </div>
+  </aside>
+
+  <div class="search-panel" id="searchPanel" role="dialog" aria-label="Buscar">
+    <div class="container">
+      <form class="search-panel__form" onsubmit="return false">
+        <svg><use href="#i-search"/></svg>
+        <input type="search" placeholder="O que você procura?" aria-label="Buscar produtos">
+        <button class="icon-btn" type="button" data-close aria-label="Fechar"><svg><use href="#i-close"/></svg></button>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <button class="to-top" id="toTop" type="button" aria-label="Voltar ao topo"><svg><use href="#i-chevron"/></svg></button>
+
+  <!-- ============ ÍCONES ============ -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M16 16l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 016 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="2.8" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z" fill="currentColor"/></symbol>
+  </svg>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
