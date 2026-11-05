@@ -232,6 +232,22 @@
       notify(name ? `${name} ${CV.i18n.added}` : `Produto ${CV.i18n.added}`);
     });
     $body.on('ajax_request_not_sent.adding_to_cart', () => notify(CV.i18n.error));
+
+    // Produto variável: o preço da cor escolhida substitui o preço principal
+    // (o bloco .woocommerce-variation-price foi removido do template).
+    const $form = window.jQuery('.summary form.variations_form');
+    const priceEl = document.querySelector('.summary > .price');
+    if ($form.length && priceEl) {
+      const original = priceEl.innerHTML;
+      $form.on('found_variation', (_e, variation) => {
+        if (variation?.price_html) {
+          const tmp = document.createElement('div');
+          tmp.innerHTML = variation.price_html;
+          priceEl.innerHTML = (tmp.querySelector('.price') || tmp).innerHTML;
+        }
+      });
+      $form.on('reset_data', () => { priceEl.innerHTML = original; });
+    }
   }
 
   /* ---------- Lista de desejos ---------- */

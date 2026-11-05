@@ -181,9 +181,46 @@ add_filter( 'woocommerce_add_to_cart_fragments', function ( $fragments ) {
 } );
 
 /* ---------- Página do produto ---------- */
-// Tira o "Categoria/SKU" do meio do resumo e manda para o fim, mais discreto.
+// Sem o bloco .product_meta (SKU / categoria / tags) na página do produto.
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
-add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 60 );
+
+// Relacionados saem da coluna do produto e viram uma seção de largura total antes do footer.
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+add_action( 'woocommerce_after_main_content', function () {
+	if ( ! is_product() ) {
+		return;
+	}
+	global $product;
+	if ( ! $product instanceof WC_Product ) {
+		$product = wc_get_product( get_queried_object_id() ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride
+	}
+	if ( ! $product ) {
+		return;
+	}
+	ob_start();
+	woocommerce_output_related_products();
+	$html = trim( ob_get_clean() );
+	if ( $html ) {
+		echo '<section class="product-related-section"><div class="container">' . $html . '</div></section>'; // phpcs:ignore
+	}
+}, 20 ); // depois do fechamento do <main> (prioridade 10)
+
+// Variável: em vez da faixa "R$ X – R$ Y", mostra preço promocional + original riscado
+// quando todas as cores têm o mesmo preço cheio; senão "A partir de R$ X".
+add_filter( 'woocommerce_variable_price_html', function ( $html, $product ) {
+	$min     = (float) $product->get_variation_price( 'min', true );
+	$max     = (float) $product->get_variation_price( 'max', true );
+	$reg_min = (float) $product->get_variation_regular_price( 'min', true );
+	$reg_max = (float) $product->get_variation_regular_price( 'max', true );
+
+	if ( $product->is_on_sale() && $reg_min === $reg_max && $min < $reg_max ) {
+		return wc_format_sale_price( wc_price( $reg_max ), wc_price( $min ) ) . $product->get_price_suffix();
+	}
+	if ( $min === $max ) {
+		return wc_price( $min ) . $product->get_price_suffix();
+	}
+	return '<span class="price-from">A partir de</span> ' . wc_price( $min ) . $product->get_price_suffix();
+}, 10, 2 );
 
 // Botão de lista de desejos ao lado do "Comprar".
 add_action( 'woocommerce_after_add_to_cart_button', function () {
