@@ -6,7 +6,7 @@
 defined( 'ABSPATH' ) || exit;
 
 $has_woo     = class_exists( 'WooCommerce' );
-$transparent = is_front_page();
+$transparent = false; // header sólido em todas as páginas (inclusive a home)
 $notice      = cv_field( 'topbar_notice', 'Frete grátis nas compras acima de R$ 299 · Troca fácil em até 30 dias' );
 ?><!doctype html>
 <html <?php language_attributes(); ?>>

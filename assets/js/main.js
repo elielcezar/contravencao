@@ -257,9 +257,9 @@
     }
   }
 
-  /* ---------- Vídeo do produto na galeria ---------- */
-  // O Woo já toca/pausa o slide ativo; aqui: botão de som (clicar no vídeo também
-  // alterna) e fallback que pausa o vídeo fora da tela ou fora do slide ativo.
+  /* ---------- Vídeo do produto (bloco texto + vídeo) ---------- */
+  // Toca sem som quando aparece na tela e pausa ao sair; botão (ou clique no
+  // vídeo) alterna o som.
   $$('.cv-video').forEach((wrap) => {
     const video = $('video', wrap);
     const btn = $('.cv-video__sound', wrap);
@@ -273,56 +273,21 @@
       btn.setAttribute('aria-label', on ? 'Desativar som' : 'Ativar som');
       if (on) video.play?.()?.catch?.(() => {});
     };
-    const toggle = (e) => { e.preventDefault(); e.stopPropagation(); setSound(video.muted); };
+    const toggle = (e) => { e.preventDefault(); setSound(video.muted); };
     btn.addEventListener('click', toggle);
     video.addEventListener('click', toggle);
 
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(([entry]) => {
-        const active = !wrap.closest('.flex-viewport') || wrap.closest('.flex-active-slide');
-        if (entry.isIntersecting && active && !reduceMotion) {
+        if (entry.isIntersecting && !reduceMotion) {
           video.play()?.catch?.(() => {});
         } else {
           video.pause();
-          if (!entry.isIntersecting || !active) setSound(false);
+          if (!entry.isIntersecting) setSound(false);
         }
-      }, { threshold: 0.5 }).observe(wrap);
+      }, { threshold: 0.4 }).observe(wrap);
     }
   });
-
-  // Marca a miniatura do vídeo (ícone de play) quando o flexslider monta as thumbs.
-  const videoGallery = $('.woocommerce-product-gallery.has-video');
-  if (videoGallery) {
-    const markThumb = () => {
-      const thumbs = $$('.flex-control-thumbs li', videoGallery);
-      if (!thumbs.length) return false;
-      const slides = $$('.woocommerce-product-gallery__wrapper > .woocommerce-product-gallery__image', videoGallery);
-      slides.forEach((s, i) => s.classList.contains('cv-gallery-video') && thumbs[i]?.classList.add('cv-thumb-video'));
-      return true;
-    };
-    // Clique em qualquer ponto da miniatura vale como clique na <img> (que é o que o flexslider escuta).
-    videoGallery.addEventListener('click', (e) => {
-      const li = e.target.closest('.flex-control-thumbs li');
-      if (li && e.target === li) li.querySelector('img')?.click();
-    });
-    // Vídeo em 1º: a cor padrão selecionada no carregamento faz o Woo deslizar até a
-    // foto dela. Enquanto o cliente não mexer na cor, mantém a galeria no vídeo.
-    const firstIsVideo = $('.woocommerce-product-gallery__wrapper > .woocommerce-product-gallery__image', videoGallery)?.classList.contains('cv-gallery-video');
-    const varForm = $('.summary form.variations_form');
-    if (firstIsVideo && varForm && window.jQuery) {
-      let touched = false;
-      varForm.addEventListener('change', (e) => { if (e.isTrusted) touched = true; }, true); // só mudança real do usuário
-      varForm.addEventListener('click', (e) => { if (e.isTrusted && e.target.closest('.variations')) touched = true; }, true);
-      window.jQuery(varForm).on('found_variation', () => {
-        if (touched) return;
-        setTimeout(() => window.jQuery(videoGallery).data('flexslider')?.flexAnimate(0, true), 300);
-      });
-    }
-    if (!markThumb()) {
-      const mo = new MutationObserver(() => { if (markThumb()) mo.disconnect(); });
-      mo.observe(videoGallery, { childList: true, subtree: true });
-    }
-  }
 
   /* ---------- Lista de desejos ---------- */
   const COOKIE = 'cv_wishlist';

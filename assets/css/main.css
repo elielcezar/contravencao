@@ -138,6 +138,8 @@ svg { width: 20px; height: 20px; flex: none; }
 /* Páginas internas: header sólido desde o início, conteúdo abaixo dele */
 .site-header:not(.is-transparent) .header-main { background: var(--c-white); border-color: var(--c-line); }
 body:not(.has-hero) .site-main { padding-top: calc(var(--topbar-h) + var(--header-h) + 56px); padding-bottom: 110px; }
+/* Home: a abertura começa logo abaixo do header, sem sobreposição */
+.has-hero .site-main { padding-top: calc(var(--topbar-h) + var(--header-h)); }
 
 /* Fixo após rolar: some a topbar */
 .site-header.is-stuck { transform: translateY(calc(var(--topbar-h) * -1)); }
@@ -257,8 +259,8 @@ body:not(.has-hero) .site-main { padding-top: calc(var(--topbar-h) + var(--heade
 .cat-split__caption { position: absolute; left: 0; right: 0; bottom: 56px; z-index: 1; text-align: center; padding: 0 var(--gutter); }
 .cat-split__caption h2 { font: 600 clamp(36px, 3.4vw, 52px)/1 var(--f-serif); text-transform: uppercase; margin-bottom: 14px; }
 .cat-split__caption p { max-width: 320px; margin: 0 auto; font-size: 13px; line-height: 1.6; }
-/* Abertura da home: escurece o topo para o header transparente (logo/menu brancos). */
-.cat-split--hero .cat-split__item::before { content: ""; position: absolute; inset: 0 0 auto; height: 220px; z-index: 1; background: linear-gradient(rgba(0,0,0,.35), transparent); pointer-events: none; }
+/* Abertura da home: ocupa o resto da tela abaixo do header */
+.cat-split--hero .cat-split__item { height: min(calc(100vh - var(--topbar-h) - var(--header-h)), 900px); }
 
 /* ---------- Statement ---------- */
 .statement { padding: 140px 0; text-align: center; }
@@ -420,7 +422,7 @@ body:not(.has-hero) .site-main { padding-top: calc(var(--topbar-h) + var(--heade
   .product__actions button { opacity: 1; transform: none; width: 32px; height: 32px; }
   .product__add { opacity: 1; transform: none; height: 36px; font-size: 11px; left: 8px; right: 8px; bottom: 8px; }
   .cat-split { grid-template-columns: 1fr; }
-  .cat-split__item { height: 80vh; min-height: 460px; }
+  .cat-split__item, .cat-split--hero .cat-split__item { height: 80vh; min-height: 460px; }
   .statement { padding: 90px 0; }
   .testimonials { padding: 70px 0; }
   .testimonials__inner { grid-template-columns: 1fr; }
