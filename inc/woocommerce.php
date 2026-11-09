@@ -190,6 +190,15 @@ add_filter( 'woocommerce_product_tabs', function ( $tabs ) {
 	return $tabs;
 }, 98 );
 
+// Galeria: a troca de foto é instantânea (sem deslizar por todas as fotos entre a atual e a
+// escolhida) e a foto que entra aparece em fade via CSS (.flex-active-slide em woocommerce.css).
+// O modo "fade" nativo do flexslider depende do CSS padrão do Woo, desligado no tema.
+add_filter( 'woocommerce_single_product_carousel_options', function ( $options ) {
+	$options['animation']      = 'slide';
+	$options['animationSpeed'] = 1;
+	return $options;
+} );
+
 /* Abaixo do preço: parcelamento sem juros e avaliações.
    As regras (parcelas, parcela mínima) ficam em Contravenção > Geral > Pagamento;
    em produtos variáveis o JS recalcula com o preço da cor escolhida (data-*). */

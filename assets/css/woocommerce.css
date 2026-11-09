@@ -119,7 +119,12 @@ ul.products { margin: 0; }
   background: var(--c-white); font-size: 0;
 }
 .woocommerce-product-gallery__trigger::before { content: ""; width: 16px; height: 16px; border: 1.6px solid var(--c-text); border-radius: 50%; }
-.woocommerce-product-gallery:not(:has(.flex-viewport)) .woocommerce-product-gallery__wrapper { display: grid; gap: 10px; }
+/* Sem slider (Woo não inicia o flexslider com 1 foto ou sem JS): fotos em coluna. Com slider sempre há miniaturas (.flex-control-nav), em "slide" ou "fade". */
+.woocommerce-product-gallery:not(:has(.flex-control-nav)) .woocommerce-product-gallery__wrapper { display: grid; gap: 10px; }
+/* Troca de foto: o slider pula direto (animationSpeed 1 em inc/woocommerce.php) e a foto ativa entra em fade. */
+.woocommerce-product-gallery .flex-active-slide { animation: cv-gallery-fade .45s ease; }
+@keyframes cv-gallery-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .woocommerce-product-gallery .flex-active-slide { animation: none; } }
 
 /* Miniaturas da galeria ocupam a célula toda */
 .flex-control-thumbs img { display: block; width: 100%; height: auto; }

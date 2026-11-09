@@ -34,7 +34,7 @@ $payments  = array_filter( array_map( 'trim', explode( ',', cv_field( 'footer_pa
 		</div>
 	</div>
 	<div class="footer-wordmark" aria-hidden="true">
-		<div class="container"><?php echo cv_lettering() ?: esc_html( mb_strtoupper( get_bloginfo( 'name' ) ) ); // phpcs:ignore ?></div>
+		<?php echo cv_lettering() ?: esc_html( mb_strtoupper( get_bloginfo( 'name' ) ) ); // phpcs:ignore ?>
 	</div>
 </footer>
 
