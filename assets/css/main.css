@@ -32,6 +32,7 @@
 }
 .admin-bar { --admin-bar: 32px; }
 @media (max-width: 782px) { .admin-bar { --admin-bar: 46px; } }
+@media (min-width: 1361px) { :root { --container: 1600px; } }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
