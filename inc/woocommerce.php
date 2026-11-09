@@ -184,6 +184,83 @@ add_filter( 'woocommerce_add_to_cart_fragments', function ( $fragments ) {
 // Sem o bloco .product_meta (SKU / categoria / tags) na página do produto.
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
 
+// Sem a aba "Informação adicional" (atributos / peso / dimensões).
+add_filter( 'woocommerce_product_tabs', function ( $tabs ) {
+	unset( $tabs['additional_information'] );
+	return $tabs;
+}, 98 );
+
+/* Abaixo do preço: parcelamento sem juros e avaliações.
+   As regras (parcelas, parcela mínima) ficam em Contravenção > Geral > Pagamento;
+   em produtos variáveis o JS recalcula com o preço da cor escolhida (data-*). */
+function cv_payment_rules(): array {
+	return [
+		'max' => max( 1, (int) cv_field( 'pay_installments', 6 ) ),
+		'min' => max( 0, (float) cv_field( 'pay_min_installment', 0 ) ),
+	];
+}
+
+/** Número de parcelas para um valor, respeitando a parcela mínima. */
+function cv_installments_for( float $price, array $rules ): int {
+	$n = $rules['max'];
+	if ( $rules['min'] > 0 ) {
+		$n = min( $n, (int) floor( $price / $rules['min'] ) );
+	}
+	return max( 1, $n );
+}
+
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
+add_action( 'woocommerce_single_product_summary', function () {
+	global $product;
+	if ( ! $product instanceof WC_Product ) {
+		return;
+	}
+	$price = (float) wc_get_price_to_display( $product );
+	$rules = cv_payment_rules();
+
+	if ( $price > 0 ) {
+		$n = cv_installments_for( $price, $rules );
+		printf(
+			'<div class="price-info" data-price="%s" data-installments="%d" data-min="%s">
+				<p class="price-info__inst"%s>ou <span class="js-n">%d</span>x de <strong class="js-inst">%s</strong> sem juros</p>
+			</div>',
+			esc_attr( $price ),
+			(int) $rules['max'],
+			esc_attr( $rules['min'] ),
+			$n > 1 ? '' : ' hidden',
+			(int) $n,
+			wp_kses_post( wc_price( $price / $n ) )
+		);
+	}
+
+	$count = (int) $product->get_review_count();
+	if ( $count > 0 && wc_review_ratings_enabled() ) {
+		$avg = (float) $product->get_average_rating();
+		printf(
+			'<a href="#reviews" class="price-info__rating woocommerce-review-link" aria-label="%1$s">%2$s<span>%3$s (%4$s)</span></a>',
+			esc_attr( sprintf( 'Nota %s de 5, %d avaliações', wc_format_localized_decimal( round( $avg, 1 ) ), $count ) ),
+			cv_stars( $avg ), // phpcs:ignore
+			esc_html( sprintf( '%s estrelas', wc_format_localized_decimal( round( $avg, 1 ) ) ) ),
+			esc_html( sprintf( _n( '%d avaliação', '%d avaliações', $count ), $count ) )
+		);
+	} elseif ( function_exists( 'qpi_get_source_rating' ) && ( $src = qpi_get_source_rating( $product->get_id() ) ) ) {
+		// Sem avaliações da loja: nota do anúncio de origem, identificada (plugin Importador Rápido).
+		$avg   = (float) $src['average'];
+		$n     = (int) $src['count'];
+		$label = $n >= 1000
+			? wc_format_localized_decimal( rtrim( rtrim( number_format( $n / 1000, 1, '.', '' ), '0' ), '.' ) ) . ' mil'
+			: number_format_i18n( $n );
+		printf(
+			'<a href="#reviews" class="price-info__rating woocommerce-review-link" aria-label="%1$s">%2$s<span>%3$s · %4$s avaliações na %5$s</span></a>',
+			esc_attr( sprintf( 'Nota %s de 5 com %s avaliações na %s', wc_format_localized_decimal( $avg ), $label, $src['source'] ) ),
+			cv_stars( $avg ), // phpcs:ignore
+			esc_html( wc_format_localized_decimal( $avg ) ),
+			esc_html( $label ),
+			esc_html( $src['source'] )
+		);
+	}
+}, 11 );
+
 // Relacionados saem da coluna do produto e viram uma seção de largura total antes do footer.
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
 add_action( 'woocommerce_after_main_content', function () {

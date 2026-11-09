@@ -30,6 +30,14 @@ add_action( 'wp_enqueue_scripts', function () {
 	wp_localize_script( 'cv-main', 'CV', [
 		'ajaxUrl' => admin_url( 'admin-ajax.php' ),
 		'nonce'   => wp_create_nonce( 'cv_wishlist' ),
+		// Formato de moeda do Woo, para recalcular as parcelas no JS.
+		'currency' => function_exists( 'get_woocommerce_currency_symbol' ) ? [
+			'symbol'   => html_entity_decode( get_woocommerce_currency_symbol(), ENT_QUOTES, 'UTF-8' ),
+			'format'   => html_entity_decode( get_woocommerce_price_format(), ENT_QUOTES, 'UTF-8' ),
+			'decimals' => wc_get_price_decimals(),
+			'decimal'  => wc_get_price_decimal_separator(),
+			'thousand' => wc_get_price_thousand_separator(),
+		] : null,
 		'i18n'    => [
 			'added'       => 'adicionado ao carrinho',
 			'wishAdded'   => 'Adicionado à lista de desejos',

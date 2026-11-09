@@ -157,6 +157,10 @@ function cv_acf_general_group(): array {
 			cv_tab( 'Topbar' ),
 			cv_f( 'text', 'topbar_notice', 'Aviso central', [ 'instructions' => 'Links da topbar: Aparência > Menus (locais "Topbar").' ] ),
 
+			cv_tab( 'Pagamento' ),
+			cv_f( 'number', 'pay_installments', 'Parcelas sem juros', [ 'default_value' => 6, 'min' => 1, 'max' => 12, 'wrapper' => [ 'width' => 50 ] ] ),
+			cv_f( 'number', 'pay_min_installment', 'Parcela mínima (R$)', [ 'default_value' => 0, 'min' => 0, 'instructions' => '0 = sem mínimo.', 'wrapper' => [ 'width' => 50 ] ] ),
+
 			cv_tab( 'Rodapé' ),
 			cv_f( 'text', 'footer_copyright', 'Copyright', [ 'instructions' => 'Use {ano} para o ano atual.' ] ),
 			cv_f( 'text', 'footer_payments', 'Formas de pagamento', [ 'instructions' => 'Separadas por vírgula.' ] ),

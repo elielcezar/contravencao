@@ -255,6 +255,30 @@
       });
       $form.on('reset_data', () => { priceEl.innerHTML = original; });
     }
+
+    // À vista / parcelado (inc/woocommerce.php): recalcula com o preço da variação.
+    const info = document.querySelector('.summary .price-info');
+    if ($form.length && info && CV.currency) {
+      const c = CV.currency;
+      const money = (v) => {
+        const [int, dec] = Math.abs(v).toFixed(c.decimals).split('.');
+        const num = int.replace(/\B(?=(\d{3})+(?!\d))/g, c.thousand) + (c.decimals ? c.decimal + dec : '');
+        return c.format.replace('%1$s', c.symbol).replace('%2$s', num);
+      };
+      const base = parseFloat(info.dataset.price);
+      const maxN = parseInt(info.dataset.installments, 10) || 1;
+      const min = parseFloat(info.dataset.min) || 0;
+      const instEl = $('.price-info__inst', info);
+      const paint = (price) => {
+        if (!(price > 0)) return;
+        const n = Math.max(1, min > 0 ? Math.min(maxN, Math.floor(price / min)) : maxN);
+        $('.js-n', info).textContent = n;
+        $('.js-inst', info).textContent = money(price / n);
+        instEl.hidden = n < 2;
+      };
+      $form.on('found_variation', (_e, variation) => paint(parseFloat(variation?.display_price)));
+      $form.on('reset_data', () => paint(base));
+    }
   }
 
   /* ---------- Vídeo do produto (bloco texto + vídeo) ---------- */

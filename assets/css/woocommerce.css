@@ -126,12 +126,20 @@ ul.products { margin: 0; }
 
 .summary .product_title { margin-bottom: 14px; letter-spacing: -2px; }
 .summary .woocommerce-product-rating { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 13px; color: var(--c-muted); }
-.summary .price { display: flex; align-items: baseline; gap: 10px; margin-bottom: 22px; font-size: 22px; font-weight: 600; color: var(--c-text); }
+.summary .price { display: flex; align-items: baseline; gap: 10px; margin-bottom: 22px; font-size: 26px; font-weight: 600; color: var(--c-text); }
 .summary .price ins { order: -1; text-decoration: none; }
 .summary .price del, .summary .price del .amount, .summary .price del bdi {
   font-size: 16px; font-weight: 400; color: #a0a0a0; text-decoration: line-through;
 }
 .summary .price .price { display: contents; } /* preço da variação injetado pelo JS */
+/* À vista / parcelas / avaliações abaixo do preço (inc/woocommerce.php) */
+.summary .price:has(+ .price-info) { margin-bottom: 8px; }
+.price-info { margin-bottom: 14px; font-size: 14px; line-height: 1.6; color: var(--c-muted); }
+.price-info strong { font-weight: 600; color: var(--c-text); }
+.price-info__rating { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 22px; font-size: 13px; color: var(--c-muted); transition: color .2s; }
+.price-info__rating .stars svg { width: 14px; height: 14px; }
+.price-info__rating:hover { color: var(--c-text); }
+.price-info:not(:has(+ .price-info__rating)) { margin-bottom: 22px; }
 .price-from { font-size: .6em; font-weight: 400; color: var(--c-muted); }
 .woocommerce-product-details__short-description { margin-bottom: 28px; font-size: 15px; color: var(--c-body); }
 
