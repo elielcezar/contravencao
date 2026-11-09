@@ -251,7 +251,7 @@ add_action( 'woocommerce_single_product_summary', function () {
 			? wc_format_localized_decimal( rtrim( rtrim( number_format( $n / 1000, 1, '.', '' ), '0' ), '.' ) ) . ' mil'
 			: number_format_i18n( $n );
 		printf(
-			'<a href="#reviews" class="price-info__rating woocommerce-review-link" aria-label="%1$s">%2$s<span>%3$s · %4$s avaliações na %5$s</span></a>',
+			'<a href="#reviews" class="price-info__rating woocommerce-review-link" aria-label="%1$s">%2$s<span>%3$s · %4$s avaliações</span></a>',
 			esc_attr( sprintf( 'Nota %s de 5 com %s avaliações na %s', wc_format_localized_decimal( $avg ), $label, $src['source'] ) ),
 			cv_stars( $avg ), // phpcs:ignore
 			esc_html( wc_format_localized_decimal( $avg ) ),
